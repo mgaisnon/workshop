@@ -35,11 +35,11 @@ function Navbar(){
         <div>
             <img className='logo-menu' src={Logo}></img>
             <div className='div-menu'>
-                <p className='element-menu'onClick={redirectHome} >Home</p>
-                <p className='element-menu'onClick={redirectAbout}>About Us</p>
-                <p className='element-menu'onClick={redirectConsultation}>Consulation</p>
+                <p className='element-menu' onClick={redirectHome} >Home</p>
+                <p className='element-menu' onClick={redirectAbout}>About Us</p>
+                <p className='element-menu' onClick={redirectConsultation}>Consulations</p>
                 <p className='element-menu' onClick={redirectContact}>Contact</p>
-                <p className='element-menu'onClick={redirectlogin}>Deconnexion</p>
+                <p className='element-menu' onClick={redirectlogin}>Deconnexion</p>
 
             </div>
         </div>

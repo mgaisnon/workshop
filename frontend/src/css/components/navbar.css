@@ -6,42 +6,18 @@
 }
 
 .element-menu{
-    padding: 20px;
+    padding: 25px;
     padding-top: 0;
     cursor: pointer ;
 }
 
 .logo-menu{
-    height: 100px;
+    height: 110px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
-    margin-top: 10px;
+    margin-top: -10px;
     
 }
 
-.titre-application{
-    color: rgb(0, 0, 0);
-    text-align: center;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 35px;
-    text-transform: uppercase;
-}
 
-.dragon{
-    height: 90px;
-    left: 10px;
-    position: absolute;
-    background-color: rgb(163, 173, 167);
-    clip-path:ellipse(40% 50%);
-}
-
-.dragon-2{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    height: 90px;
-    background-color: rgb(163, 173, 167);
-    clip-path:ellipse(40% 50%);
-}
