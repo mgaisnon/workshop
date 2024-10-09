@@ -10,7 +10,12 @@ function HopitalComponent(props){
             <div class="card-text">
                 <strong>Temps d'attente : </strong> {props.temps}
             </div>
-        <button class="card-button">Bouton</button>
+            <div class="card-text">
+                <strong>Adresse : </strong> {props.adresse}
+            </div>
+            <div class="card-text">
+                <strong>Ville : </strong> {props.ville}
+            </div>
     </div>
 </div>
     )

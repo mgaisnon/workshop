@@ -1,11 +1,24 @@
 import Navbar from "../components/navbar.js";
 import '../css/pages/home.css';
 import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import photoMedical from '../media/photo1.jpg';
 import Footer from '../components/footer.js'
 function Home() {
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     let navigate = useNavigate();
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem('token');
+        if (accessToken) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+          navigate('/'); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+        }
+    });
 
     const navigatetoConsultation = () => {
         const path = '/consultation';

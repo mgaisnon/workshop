@@ -27,6 +27,7 @@ function Navbar(){
     }
 
     const redirectlogin = () => {
+        localStorage.removeItem('token');
         const path = '/';
         navigate(path)
     }

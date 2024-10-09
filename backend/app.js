@@ -1,15 +1,23 @@
 const express = require("express");
-const db = require('./db'); // Assurez-vous que le chemin est correct
+const db = require('./db');
+const cors = require('cors'); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const port = 8000; // Vous pouvez changer le port si nécessaire
+const port = 8000; 
 
 app.use(express.json());
 
-const JWT_SECRET = 'WORKSHOP'; // Remplacez ceci par une clé secrète sécurisée
+const JWT_SECRET = 'WORKSHOP'; 
 
+const corsOptions = {
+  origin: 'http://localhost:3000', // Remplacez par le domaine d'origine autorisé
+  methods: ['GET', 'POST'], // Méthodes autorisées
+  allowedHeaders: ['Content-Type', 'Authorization'] // En-têtes autorisés
+};
+
+app.use(cors(corsOptions));
 
 app.get('/hopitaux', async (req, res) => {
   try {
