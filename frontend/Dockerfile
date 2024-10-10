@@ -1,20 +1,20 @@
-# Utiliser une image de base pour Node.js
-FROM node:14-alpine
+# Utiliser l'image Node.js pour builder le frontend
+FROM node:latest AS build
 
-# Définir le répertoire de travail dans le conteneur
-WORKDIR /app
+# Définir le répertoire de travail
+WORKDIR /usr/src/app
 
-# Copier uniquement le contenu du dossier frontend
-COPY ./frontend/package*.json ./
-
-# Installer les dépendances
+# Copier les fichiers de package et installer les dépendances
+COPY package*.json ./
 RUN npm install
 
-# Copier le reste des fichiers du frontend
-COPY ./frontend ./
+# Copier le reste de l'application et builder le projet React
+COPY . .
+RUN npm run build
 
-# Exposer le port du serveur
-EXPOSE 3000
+# Utiliser une image nginx pour servir le contenu buildé
+FROM nginx:alpine
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
-# Commande pour démarrer l'application
-CMD ["npm", "start"]
+# Exposer le port 80 pour servir le frontend
+EXPOSE 80
