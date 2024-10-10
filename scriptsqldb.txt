@@ -1,0 +1,209 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: db:3306
+-- Generation Time: Oct 09, 2024 at 07:53 AM
+-- Server version: 11.5.2-MariaDB-ubu2404
+-- PHP Version: 8.2.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `workshop`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Hopital`
+--
+
+CREATE TABLE `Hopital` (
+  `hopital_id` int(11) NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `adresse` varchar(255) NOT NULL,
+  `temps_attente` time DEFAULT '00:00:00',
+  `motif_id` int(11) DEFAULT NULL,
+  `ville` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `Hopital`
+--
+
+INSERT INTO `Hopital` (`hopital_id`, `nom`, `adresse`, `temps_attente`, `motif_id`, `ville`) VALUES
+(1, 'Hôpital Necker-Enfants Malades', '149 Rue de Sèvres, 75015 Paris', '00:30:00', 1, 'Paris'),
+(2, 'Hôpital Cochin', '27 Rue du Faubourg Saint-Jacques, 75014 Paris', '00:45:00', 2, 'Paris'),
+(3, 'Hôpital Edouard Herriot', '5 Place d\'Arsonval, 69003 Lyon', '01:00:00', 3, 'Lyon'),
+(4, 'Centre Hospitalier Lyon-Sud', '165 Chemin du Grand Revoyet, 69495 Pierre-Bénite', '00:20:00', 1, 'Lyon'),
+(5, 'Hôpital de Purpan', 'Place du Docteur Baylac, 31059 Toulouse', '00:40:00', 2, 'Toulouse'),
+(6, 'Hôpital Rangueil', '1 Avenue Jean Poulhès, 31400 Toulouse', '00:50:00', 3, 'Toulouse'),
+(7, 'Hôpital de la Timone', '264 Rue Saint-Pierre, 13005 Marseille', '00:35:00', 1, 'Marseille'),
+(8, 'Hôpital Nord', 'Chemin des Bourrely, 13015 Marseille', '00:25:00', 2, 'Marseille');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Login`
+--
+
+CREATE TABLE `Login` (
+  `login_id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `Login`
+--
+
+INSERT INTO `Login` (`login_id`, `username`, `password`) VALUES
+(1, 'marie.dupont@gmail.com', 'root1'),
+(2, 'jean.martin@gmail.com', 'root2'),
+(3, 'sophie.durand@gmail.com', 'root3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Motif`
+--
+
+CREATE TABLE `Motif` (
+  `motif_id` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `ambulance` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `Motif`
+--
+
+INSERT INTO `Motif` (`motif_id`, `description`, `ambulance`) VALUES
+(1, 'Consultation générale', 0),
+(2, 'Urgence cardiaque', 1),
+(3, 'Chirurgie', 1),
+(4, 'Radiologie', 0),
+(5, 'Dialyse', 0),
+(6, 'Traumatologie', 1),
+(7, 'Gynécologie', 0),
+(8, 'Pédiatrie', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Patient`
+--
+
+CREATE TABLE `Patient` (
+  `patient_id` int(11) NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `prenom` varchar(100) NOT NULL,
+  `adresse` varchar(255) DEFAULT NULL,
+  `telephone` varchar(15) DEFAULT NULL,
+  `login_id` int(11) DEFAULT NULL,
+  `hopital_id` int(11) DEFAULT NULL,
+  `motif_id` int(11) DEFAULT NULL,
+  `ville` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `Patient`
+--
+
+INSERT INTO `Patient` (`patient_id`, `nom`, `prenom`, `adresse`, `telephone`, `login_id`, `hopital_id`, `motif_id`, `ville`) VALUES
+(1, 'Martin', 'Jean', '10 Rue de la Paix, Paris', '0123456789', 1, 1, 1, NULL),
+(2, 'Dupont', 'Marie', '20 Avenue des Champs-Élysées, Paris', '0234567890', 2, 1, 2, NULL),
+(5, 'Durand', 'Sophie', '30 Rue de la Liberté, Marseille', '0567890123', 3, 3, 2, NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Hopital`
+--
+ALTER TABLE `Hopital`
+  ADD PRIMARY KEY (`hopital_id`),
+  ADD KEY `motif_id` (`motif_id`);
+
+--
+-- Indexes for table `Login`
+--
+ALTER TABLE `Login`
+  ADD PRIMARY KEY (`login_id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `Motif`
+--
+ALTER TABLE `Motif`
+  ADD PRIMARY KEY (`motif_id`);
+
+--
+-- Indexes for table `Patient`
+--
+ALTER TABLE `Patient`
+  ADD PRIMARY KEY (`patient_id`),
+  ADD KEY `login_id` (`login_id`),
+  ADD KEY `hopital_id` (`hopital_id`),
+  ADD KEY `motif_id` (`motif_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Hopital`
+--
+ALTER TABLE `Hopital`
+  MODIFY `hopital_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `Login`
+--
+ALTER TABLE `Login`
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `Motif`
+--
+ALTER TABLE `Motif`
+  MODIFY `motif_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `Patient`
+--
+ALTER TABLE `Patient`
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Hopital`
+--
+ALTER TABLE `Hopital`
+  ADD CONSTRAINT `Hopital_ibfk_1` FOREIGN KEY (`motif_id`) REFERENCES `Motif` (`motif_id`);
+
+--
+-- Constraints for table `Patient`
+--
+ALTER TABLE `Patient`
+  ADD CONSTRAINT `Patient_ibfk_1` FOREIGN KEY (`login_id`) REFERENCES `Login` (`login_id`),
+  ADD CONSTRAINT `Patient_ibfk_2` FOREIGN KEY (`hopital_id`) REFERENCES `Hopital` (`hopital_id`),
+  ADD CONSTRAINT `Patient_ibfk_3` FOREIGN KEY (`motif_id`) REFERENCES `Motif` (`motif_id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
