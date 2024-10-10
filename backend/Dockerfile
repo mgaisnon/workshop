@@ -1,20 +1,18 @@
-# Utiliser une image de base pour Node.js
-FROM node:14-alpine
+# Utiliser l'image Node.js officielle
+FROM node:latest
 
-# Définir le répertoire de travail dans le conteneur
-WORKDIR /app
+# Définir le répertoire de travail
+WORKDIR /usr/src/app
 
-# Copier uniquement le contenu du dossier frontend
-COPY ./backend/package*.json ./
-
-# Installer les dépendances
+# Copier les fichiers de package et installer les dépendances
+COPY package*.json ./
 RUN npm install
 
-# Copier le reste des fichiers du frontend
-COPY ./backend ./
+# Copier le reste de l'application
+COPY . .
 
-# Exposer le port du serveur
-EXPOSE 8000
+# Exposer le port utilisé par ton application (ex : 3000)
+EXPOSE 3000
 
-# Commande pour démarrer l'application
+# Démarrer l'application
 CMD ["node", "app.js"]

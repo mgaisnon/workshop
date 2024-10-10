@@ -12,10 +12,11 @@ app.use(express.json());
 const JWT_SECRET = 'WORKSHOP'; 
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // Remplacez par le domaine d'origine autorisé
+  origin: ['http://localhost:3000', 'http://localhost:80', 'http://localhost'], // Autoriser localhost:3000 et localhost:80
   methods: ['GET', 'POST'], // Méthodes autorisées
-  allowedHeaders: ['Content-Type', 'Authorization'] // En-têtes autorisés
+  allowedHeaders: ['Content-Type', 'Authorization'], // En-têtes autorisés
 };
+
 
 app.use(cors(corsOptions));
 

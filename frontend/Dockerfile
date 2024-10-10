@@ -8,6 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 
+
 # Copier le reste de l'application et builder le projet React
 COPY . .
 RUN npm run build
